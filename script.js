@@ -41,7 +41,7 @@ function onlyBin(string) {
     }
   }
 
-  if(pass) {
+  if (pass) {
     return binToDec(string)
   }
 }
