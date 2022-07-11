@@ -1,0 +1,70 @@
+/* RESETS */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* VARIABLES */
+:root {
+    /* COLORS */
+    --hue: 200;
+    /* HSL color mode */
+    --base-color: hsl(var(--hue) 50% 40%);
+    --title-color: hsl(var(--hue) 80% 50%);
+    --text-color: hsl(var(--hue) 0% 46%);
+}
+
+/* BASICS */
+body {
+  max-width: 280px;
+  width: 100%;
+  margin: 0 auto;
+  font-family: 'Lato', sans-serif;
+}
+
+.main {
+  padding: 1.25rem;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  color: var(--title-color);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 400;
+  border-radius: 1rem;
+  color: var(--text-color);
+  border: 0.2rem solid var(--base-color);
+}
+
+#convert {
+  background-color: var(--base-color);
+  color: #fff;
+  transition: background-color .3s, border .3s;
+}
+
+#input-bin:active, #input-dec:active {
+  border-color: var(--base-color);
+}
+
+#convert:hover {
+  background-color: var(--title-color);
+  color: #fff;
+  border: 0.2rem solid var(--title-color);
+}
