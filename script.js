@@ -9,8 +9,8 @@ const getBin = document.getElementById('input-bin')
 const getDec = document.getElementById('input-dec')
 const getButton = document.getElementById('convert')
 const getTitle = document.getElementById('title')
-let buttonBin = document.querySelector('form .binConverter')
-let buttonDec = document.querySelector('form .decConverter')
+let buttonBin = document.getElementsByClassName('binConverter')
+let buttonDec = document.getElementsByClassName('decConverter')
 
 getBin.addEventListener('click', function () {
   getButton.classList.add('binConverter')
@@ -26,20 +26,24 @@ getDec.addEventListener('click', function () {
 
 getButton.addEventListener('click', function () {
   if (buttonBin[0]) {
-    console.log('testeBin')
+    getDec.value = onlyBin(getBin.value)
   } else if (buttonDec[0]) {
-    console.log('testeDec')
+    getBin.value = decToBin(getDec.value)
   }
 })
 
 function onlyBin(string) {
+  let pass = true
   for (let i = 0; i < string.length; i++) {
     if (string[i] != 1 && string[i] != 0) {
       alert(`O número digitado não é válido, use apenas 0 e 1`)
+      pass = false
     }
   }
 
-  return binToDec(string)
+  if(pass) {
+    return binToDec(string)
+  }
 }
 
 function binToDec(bin) {
