@@ -5,80 +5,67 @@
  * [X] User can enter a variable number of binary digits
  */
 
-const getBin = document.getElementById('input-bin')
-const getDec = document.getElementById('input-dec')
-const getButton = document.getElementById('convert')
-const getTitle = document.getElementById('title')
-let buttonBin = document.getElementsByClassName('binConverter')
-let buttonDec = document.getElementsByClassName('decConverter')
+const getBin = document.getElementById("input-bin");
+const getDec = document.getElementById("input-dec");
+const getButton = document.getElementById("convert");
+const getTitle = document.getElementById("title");
+let buttonBin = document.getElementsByClassName("binConverter");
+let buttonDec = document.getElementsByClassName("decConverter");
 
-getBin.addEventListener('click', function () {
-  getButton.classList.add('binConverter')
-  getButton.classList.remove('decConverter')
-  getTitle.innerHTML = 'Binário para Decimal'
-})
+getBin.addEventListener("click", function () {
+  getButton.classList.add("binConverter");
+  getButton.classList.remove("decConverter");
+  getTitle.innerHTML = "Binário para Decimal";
+});
 
-getDec.addEventListener('click', function () {
-  getButton.classList.add('decConverter')
-  getButton.classList.remove('binConverter')
-  getTitle.innerHTML = 'Decimal para Binário'
-})
+getDec.addEventListener("click", function () {
+  getButton.classList.add("decConverter");
+  getButton.classList.remove("binConverter");
+  getTitle.innerHTML = "Decimal para Binário";
+});
 
-getButton.addEventListener('click', function () {
-  if (buttonBin[0]) {
-    getDec.value = onlyBin(getBin.value)
-  } else if (buttonDec[0]) {
-    getBin.value = decToBin(getDec.value)
-  }
-})
-
-function onlyBin(string) {
-  let pass = true
-  for (let i = 0; i < string.length; i++) {
-    if (string[i] != 1 && string[i] != 0) {
-      alert(`O número digitado não é válido, use apenas 0 e 1`)
-      pass = false
+getButton.addEventListener("click", function () {
+  try {
+    if (buttonBin[0]) {
+      validateBinaryDigits(getBin.value);
+      getDec.value = binToDec(getBin.value);
+    } else if (buttonDec[0]) {
+      getBin.value = decToBin(getDec.value);
     }
+  } catch (error) {
+    alert(error.message);
   }
+});
 
-  if (pass) {
-    return binToDec(string)
+function validateBinaryDigits(string) {
+  const hasInvalidDigit = string
+    .split("")
+    .some((digit) => digit != 0 && digit != 1);
+
+  if (hasInvalidDigit) {
+    alert(`O número digitado não é válido, use apenas 0 e 1`);
+    throw new Error("Invalid binary digit");
   }
 }
 
 function binToDec(bin) {
-  let acc = 0
-  let pot = bin.length - 1
+  let pot = bin.length - 1;
 
-  for (let i = 0; i < bin.length; i++) {
-    acc += Number(bin[i]) * Math.pow(2, pot)
-    pot -= 1
-  }
-
-  return acc
+  return bin.split("").reduce((acc, curr) => {
+    return acc + Number(curr) * Math.pow(2, pot--);
+  }, 0);
 }
 
 function reverseString(str) {
-  let newStr = []
-
-  for (let i = 0; i < str.length; i++) {
-    newStr.unshift(str[i])
-  }
-
-  return newStr.join('')
+  return str.split("").reverse().join("");
 }
 
 function decToBin(dec) {
-  let acc = ''
-
-  while (Number(dec) > 0) {
-    if (Number(dec) % 2 == 0) {
-      acc += '0'
-    } else {
-      acc += '1'
-    }
-    dec = Math.floor(Number(dec) / 2)
+  let bin = "";
+  let rest = dec;
+  while (rest > 0) {
+    bin += rest % 2;
+    rest = Math.floor(rest / 2);
   }
-
-  return reverseString(acc)
+  return reverseString(bin);
 }
