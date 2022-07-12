@@ -30,7 +30,7 @@ getButton.addEventListener('click', function () {
       validateBinaryDigits(getBin.value)
       getDec.value = binToDec(getBin.value)
     } else if (buttonDec[0]) {
-      validateDecimalDigits(getBin.value)
+      validateDecimalDigits(getDec.value)
       getBin.value = decToBin(getDec.value)
     }
   } catch (error) {
